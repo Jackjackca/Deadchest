@@ -37,6 +37,10 @@ abstract class DCCommandRegistration {
         }
     }
 
+    public boolean isCommandSucceed() {
+        return commandSucceed;
+    }
+
     /**
      * commandSucceed will be true if any command is call successfully
      *
@@ -44,10 +48,6 @@ abstract class DCCommandRegistration {
      */
     protected void setCommandSucceed(boolean succeed) {
         this.commandSucceed = this.commandSucceed || succeed;
-    }
-
-    public boolean isCommandSucceed() {
-        return commandSucceed;
     }
 
     /**

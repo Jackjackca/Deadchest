@@ -10,8 +10,8 @@ import java.util.HashMap;
 
 public class DeadChestConfig {
 
-    private final Plugin plugin;
     private static final HashMap<String, Object> configData = new HashMap<>();
+    private final Plugin plugin;
     private final FileConfiguration configuration = YamlConfiguration.loadConfiguration(new File("config.yml"));
 
     public DeadChestConfig(Plugin plugin) {

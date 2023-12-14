@@ -14,7 +14,7 @@ public enum Permission {
 
     public final String label;
 
-    private Permission(String label) {
+    Permission(String label) {
         this.label = label;
     }
 }

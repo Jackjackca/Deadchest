@@ -14,13 +14,13 @@ public final class ExpUtils {
         long amount;
         if (stringAmount.contains("l")) {
             int neededLevel = Integer.parseInt(lowerCase.replaceAll("l", "")) + target.getLevel();
-            amount = (long) (getExpToLevel(neededLevel) + (getTotalExperience(target) - getExpToLevel(target.getLevel())));
+            amount = getExpToLevel(neededLevel) + (getTotalExperience(target) - getExpToLevel(target.getLevel()));
             setTotalExperience(target, 0);
         } else {
             amount = Long.parseLong(lowerCase);
         }
 
-        amount += (long) getTotalExperience(target);
+        amount += getTotalExperience(target);
         if (amount > 2147483647L) {
             amount = 2147483647L;
         }

@@ -49,6 +49,37 @@ public class DeadChest extends JavaPlugin {
         super(loader, description, dataFolder, file);
     }
 
+    public static void handleEvent() {
+        if (chestData != null && !chestData.isEmpty()) {
+
+            Date now = new Date();
+            Iterator<ChestData> chestDataIt = chestData.iterator();
+
+            while (chestDataIt.hasNext()) {
+                ChestData chestData = chestDataIt.next();
+                World world = chestData.getChestLocation().getWorld();
+
+                if (world != null) {
+                    updateTimer(chestData, now);
+
+                    if (handleExpirateDeadChest(chestData, chestDataIt, now)) {
+                        isChangesNeedToBeSave = true;
+                        generateLog("Deadchest of [" + chestData.getPlayerName() + "] has expired in " + Objects.requireNonNull(chestData.getChestLocation().getWorld()).getName());
+                    } else {
+                        if (chestData.isChunkLoaded()) {
+                            isChangesNeedToBeSave = replaceDeadChestIfItDeseapears(chestData);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (isChangesNeedToBeSave) {
+            fileManager.saveModification();
+            isChangesNeedToBeSave = false;
+        }
+    }
+
     public void onEnable() {
 
         config = new DeadChestConfig(this);
@@ -220,37 +251,6 @@ public class DeadChest extends JavaPlugin {
 
         fileManager.getLocalizationConfig().createSection("localisation", local.get());
         fileManager.saveLocalizationConfig();
-    }
-
-    public static void handleEvent() {
-        if (chestData != null && !chestData.isEmpty()) {
-
-            Date now = new Date();
-            Iterator<ChestData> chestDataIt = chestData.iterator();
-
-            while (chestDataIt.hasNext()) {
-                ChestData chestData = chestDataIt.next();
-                World world = chestData.getChestLocation().getWorld();
-
-                if (world != null) {
-                    updateTimer(chestData, now);
-
-                    if (handleExpirateDeadChest(chestData, chestDataIt, now)) {
-                        isChangesNeedToBeSave = true;
-                        generateLog("Deadchest of [" + chestData.getPlayerName() + "] has expired in " + Objects.requireNonNull(chestData.getChestLocation().getWorld()).getName());
-                    } else {
-                        if (chestData.isChunkLoaded()) {
-                            isChangesNeedToBeSave = replaceDeadChestIfItDeseapears(chestData);
-                        }
-                    }
-                }
-            }
-        }
-
-        if (isChangesNeedToBeSave) {
-            fileManager.saveModification();
-            isChangesNeedToBeSave = false;
-        }
     }
 
     private void launchRepeatingTask() {

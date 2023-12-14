@@ -42,7 +42,7 @@ public class DeadChestListener implements Listener {
     }
 
     public DeadChestConfig getConfig() {
-        return plugin.config;
+        return config;
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

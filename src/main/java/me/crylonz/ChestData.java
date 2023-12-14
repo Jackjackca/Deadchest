@@ -141,16 +141,12 @@ public final class ChestData implements ConfigurationSerializable {
         return inventory;
     }
 
-    public void cleanInventory() {
-        inventory = new ArrayList<>();
-    }
-
     public void setInventory(List<ItemStack> inventory) {
         this.inventory = inventory;
     }
 
-    public void setRemovedBlock(final boolean removedBlock) {
-        this.isRemovedBlock = removedBlock;
+    public void cleanInventory() {
+        inventory = new ArrayList<>();
     }
 
     public Location getChestLocation() {
@@ -171,6 +167,10 @@ public final class ChestData implements ConfigurationSerializable {
 
     public boolean isRemovedBlock() {
         return isRemovedBlock;
+    }
+
+    public void setRemovedBlock(final boolean removedBlock) {
+        this.isRemovedBlock = removedBlock;
     }
 
     public boolean isInfinity() {
